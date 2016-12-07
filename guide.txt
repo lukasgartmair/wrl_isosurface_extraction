@@ -44,11 +44,11 @@ sed -n -e '132148,132459p' isosurface.txt > iso_coords.txt
 sed -n -e '132463,133082p' isosurface.txt > iso_indices.txt both for indices and coords
 
 3. now two different files with coords and indices
-4. important note: the decimals are separated in the file by commas -> replace by points before importing it to excel etc.
+4. important note: the decimals are separated in the file by commas -> replace by points
 	then it is also readable by genfromtext
 
 
-5. read in with genfromtext in python (vrml_reader.py)
+5. read in with genfromtext in python (wrl_reader.py)
 6. write the verts and face indices to obj
 7. open with blender etc. (or another obj capable program)
  
