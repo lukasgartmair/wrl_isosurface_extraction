@@ -40,17 +40,15 @@ Created on Wed Dec  7 14:21:42 2016
 
 
 2. subset the isosurface.wrl file once for the indices and once for the vertices with
+sed -n -e '132148,132459p' isosurface.txt > iso_coords.txt
 sed -n -e '132463,133082p' isosurface.txt > iso_indices.txt both for indices and coords
 
 3. now two different files with coords and indices
-4. problem the unformatted chars are somewhere in column 130 etc.
-5. important note: the decimals are separated in the file by commas -> replace by points before importing it to excel etc.
-6. format with libre office reader so that everthing stands in lines 0 to 2 and can be easily read by genfromtxt
+4. important note: the decimals are separated in the file by commas -> replace by points before importing it to excel etc.
+	then it is also readable by genfromtext
 
-	the 4th column of coordIndex can be discarded
 
-7. read in with genfromtext in python (vrml_reader.py)
-
-8. write the verts and face indices to obj
-9. open with blender etc. (or another obj capable program)
+5. read in with genfromtext in python (vrml_reader.py)
+6. write the verts and face indices to obj
+7. open with blender etc. (or another obj capable program)
  

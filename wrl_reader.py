@@ -9,9 +9,9 @@ import numpy as np
 import matplotlib.pyplot as pl
 from mpl_toolkits.mplot3d import axes3d
 
-coords = np.genfromtxt('iso_coords_formatted.txt')
+coords = np.genfromtxt('iso_coords.txt')
 
-indices = np.genfromtxt('iso_indices_formatted.txt',dtype=np.int64)
+indices = np.genfromtxt('iso_indices.txt',dtype=np.int64)
 
 fig = pl.figure()
 ax = fig.add_subplot(111, projection='3d')
