@@ -1,0 +1,56 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Dec  7 14:21:42 2016
+
+@author: lukas
+
+1. look for the isosurface content of the wrl file (vertex coordinates and face indices) something like
+
+								DEF ISO0_ISO Switch {
+									whichChoice 1
+									choice [
+										Group {
+											children [
+												Shape {
+													appearance DEF ISO0_ISO_APP Appearance {
+														material Material {
+															diffuseColor 0,557 0,557 0,557
+															emissiveColor 0,000 0,000 0,000
+															specularColor 0,800 0,800 0,800
+														}
+													}
+													geometry IndexedFaceSet {
+														solid FALSE
+														coord Coordinate {
+															point [
+																-0,023 -0,430 -8,479
+																-1,849 -0,430 -8,045
+																etc.
+
+
+														coordIndex [
+															0 1 2 -1
+															0 3 4 -1
+															2 3 0 -1
+															3 5 4 -1
+															etc.
+														
+
+
+
+2. subset the isosurface.wrl file once for the indices and once for the vertices with
+sed -n -e '132463,133082p' isosurface.txt > iso_indices.txt both for indices and coords
+
+3. now two different files with coords and indices
+4. problem the unformatted chars are somewhere in column 130 etc.
+5. important note: the decimals are separated in the file by commas -> replace by points before importing it to excel etc.
+6. format with libre office reader so that everthing stands in lines 0 to 2 and can be easily read by genfromtxt
+
+	the 4th column of coordIndex can be discarded
+
+7. read in with genfromtext in python (vrml_reader.py)
+
+8. write the verts and face indices to obj
+9. open with blender etc. (or another obj capable program)
+ 
