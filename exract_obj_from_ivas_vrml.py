@@ -57,9 +57,6 @@ def get_boundary_lines(iso_string):
         
         coord_lines_end = 0
         for num, row in enumerate(reader):
-            if num == 133083:
-                print(row)
-            
             if num > index_lines_start:
                 if ['\t\t\t\t\t\t\t\t\t\t\t\t\t\tnormal', 'Normal', '{'] == row:
                     index_lines_end =  num - 1
@@ -70,15 +67,12 @@ def get_boundary_lines(iso_string):
     
     return boundary_lines
 
-def convert_vrml_to_obj(boundary_lines):
+def convert_vrml_to_obj(boundary_lines, filename):
     
     coord_lines_start = boundary_lines[0]
     coord_lines_end = boundary_lines[1]
     index_lines_start = boundary_lines[2]
     index_lines_end = boundary_lines[3]
-    
-#    coord_lines = np.arange(132148,132459+1)
-#    index_lines = np.arange(132463,133082+1)
     
     coord_lines = np.arange(coord_lines_start,coord_lines_end+1)
     index_lines = np.arange(index_lines_start,index_lines_end+1)
@@ -124,19 +118,23 @@ def convert_vrml_to_obj(boundary_lines):
     
     indices = np.array(indices)
     
-    f = open('isosurface.obj','w')
+    f = open(str(filename +'.obj'),'w')
     for i in range(len(mesh_coords)):
         f.write('v ' + str(mesh_coords[i,0]) + ' ' + str(mesh_coords[i,1]) + ' ' +str(mesh_coords[i,2]) + '\n')
     
     for i in range(len(indices)):
-        f.write('f ' + str(indices[i,0]+1) + ' ' + str(indices[i,1]+1) + ' '+ str(indices[i,2]+1) + '\n')
-        
+        f.write('f ' + str(indices[i,0]+1) + ' ' + str(indices[i,1]+1) + ' '+ str(indices[i,2]+1) + '\n')        
     f.close()
+    return mesh_coords, indices
     
-iso_string = 'ISO0_ISO'
-boundary_lines = []
-boundary_lines = get_boundary_lines(iso_string)
-convert_vrml_to_obj(boundary_lines)
+iso_strings = ['ISO0_ISO']
+for i,is in enumerate(iso_strings):
+    boundary_lines = []
+    boundary_lines = get_boundary_lines(iso_strings[i])
+    mesh_coords = []
+    indices = []
+    filename = iso_strings[i] + ' extracted_from_vrml'
+    mesh_coords, indices = convert_vrml_to_obj(boundary_lines, filename)
 
 # test case is isosurface.wrl with boundary lines to be [132148, 132459, 132463, 133082]
 # and iso_string = 'ISO0_ISO'
