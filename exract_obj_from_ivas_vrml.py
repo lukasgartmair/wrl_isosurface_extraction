@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 """
 Created on Wed Dec  7 14:21:42 2016
-
 @author: lukas
 """
 import numpy as np
@@ -10,8 +9,6 @@ import matplotlib.pyplot as pl
 from mpl_toolkits.mplot3d import axes3d
 import csv
 import re
-
-# read in directly the .wrl file and convert the desired lines to an obj file
 
 def get_boundary_lines(iso_string):
     
@@ -128,12 +125,12 @@ def convert_vrml_to_obj(boundary_lines, filename):
     return mesh_coords, indices
     
 iso_strings = ['ISO0_ISO']
-for i,is in enumerate(iso_strings):
+for i,iso_string in enumerate(iso_strings):
     boundary_lines = []
     boundary_lines = get_boundary_lines(iso_strings[i])
     mesh_coords = []
     indices = []
-    filename = iso_strings[i] + ' extracted_from_vrml'
+    filename = iso_string + ' extracted_from_vrml'
     mesh_coords, indices = convert_vrml_to_obj(boundary_lines, filename)
 
 # test case is isosurface.wrl with boundary lines to be [132148, 132459, 132463, 133082]
