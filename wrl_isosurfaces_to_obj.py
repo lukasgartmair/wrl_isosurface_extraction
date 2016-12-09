@@ -125,18 +125,33 @@ def write_obj_file(out_filename, mesh_coords, indices):
     
 # main    
     
-wrl_filename = 'isosurface.wrl'
-iso_strings = ['ISO0_ISO']
-for i,iso_string in enumerate(iso_strings):
-    boundary_lines = []
-    boundary_lines = get_boundary_lines(iso_strings[i], wrl_filename)
-    
-    mesh_coords = []
-    indices = []
-    mesh_coords, indices = convert_vrml_to_obj(boundary_lines, wrl_filename)    
-    
-    out_filename = iso_string + ' extracted_from_vrml'
-    write_obj_file(out_filename, mesh_coords, indices)
+wrl_filenames = [
+'dist_dens25_conc60_rad8_iv03.wrl',
+'dist_dens25_conc60_rad8_iv04.wrl',
+'dist_dens25_conc60_rad8_iv05.wrl',
+'dist_dens25_conc60_rad8_iv06.wrl',
+'sharp1_dens25_rad8_iv01.wrl',
+'sharp1_dens25_rad8_iv05.wrl',
+'sharp1_dens25_rad8_iv09.wrl',
+'sharp2_dens25_rad8_iv04.wrl',
+'sharp2_dens25_rad8_iv055.wrl',
+'sharp2_dens25_rad8_iv05.wrl',
+'sharp2_dens25_rad8_iv06.wrl'
+]
+
+
+for wrl in wrl_filenames:
+    iso_strings = ['ISO0_ISO']
+    for i,iso_string in enumerate(iso_strings):
+        boundary_lines = []
+        boundary_lines = get_boundary_lines(iso_strings[i], wrl)
+        
+        mesh_coords = []
+        indices = []
+        mesh_coords, indices = convert_vrml_to_obj(boundary_lines, wrl)    
+        
+        out_filename = wrl[:-4] + '_extracted_from_vrml'
+        write_obj_file(out_filename, mesh_coords, indices)
 
 # test case is isosurface.wrl with boundary lines to be [132148, 132459, 132463, 133082]
 # and iso_string = 'ISO0_ISO'
